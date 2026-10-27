@@ -8,7 +8,7 @@ jobs:
   test:
     strategy:
       max-parallel: 2
-      fail-fast: true
+      fail-fast: false
       matrix:
         case: [fail, slow-1, slow-2, slow-3]
     name: Variant-${{ matrix.case }}
