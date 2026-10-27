@@ -1,0 +1,27 @@
+name: 03 matrix-failures
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  test:
+    strategy:
+      max-parallel: 2
+      fail-fast: true
+      matrix:
+        case: [fail, slow-1, slow-2, slow-3]
+    name: Variant-${{ matrix.case }}
+    runs-on: ubuntu-latest
+    env:
+      CASE: ${{ matrix.case }}
+    steps:
+      - run: |
+          echo "Starting $CASE"
+          if [[ "$CASE" = "fail" ]]; then
+            sleep 5
+            echo "This failure was intentional"
+            exit 1
+          fi
+          sleep 45
+          echo "$CASE is completed"
