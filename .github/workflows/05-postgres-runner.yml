@@ -22,7 +22,7 @@ jobs:
           --health-retries 5
     steps:
       - run: |
-          sudo apt-get update
-          sudo apt-get uprade
-          sudo apt-get install -y postgresql-client
+          apt-get update
+          apt-get uprade
+          apt-get install -y postgresql-client
       - run: pq-isready -h localhost -p 5432 -U lab
