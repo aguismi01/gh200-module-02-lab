@@ -1,0 +1,25 @@
+name: 02 Matrix variations
+
+on:
+  push:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [20, 22]
+        exclude:
+          - os: windows-latest
+            node: 20
+        include:
+          - os: ubuntu-latest
+            node: 24
+    runs-on: ${{ matrix.os }}
+    name: job-${{ matrix.os }}-${{ matrix.node }}
+    steps:
+      - name: Runner os
+        run: echo ${{ matrix.os }}
+
+      - name: Node version
+        run: echo ${{ matrix.node }}
