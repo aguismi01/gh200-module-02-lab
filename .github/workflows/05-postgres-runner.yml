@@ -1,0 +1,28 @@
+name: 05 postgres-runner
+
+on: workflow_dispatch
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    container: node:24
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: lab
+          POSTGRES_PASSWORD: lab-only-password
+          POSTGRES_DB: app_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U lab -d app_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - run: |
+          sudo apt-get update
+          sudo apt-get uprade
+          sudo apt-get install -y postgresql-client
+      - run: pq-isready -h localhost -p 5432 -U lab
