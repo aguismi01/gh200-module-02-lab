@@ -1,0 +1,29 @@
+name: 01 node matrix
+
+on:
+  push
+
+jobs:
+  matrix_job:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [20, 22, 24]
+    name: matrix-job-on-${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: npm i 
+    
+      - name: Run test
+        run: |
+          echo "Node.js version ${{ matrix.node }}"
+          npm test
