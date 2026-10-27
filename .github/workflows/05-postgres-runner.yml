@@ -23,6 +23,6 @@ jobs:
     steps:
       - run: |
           apt-get update
-          apt-get uprade
+          apt-get upgrade -y
           apt-get install -y postgresql-client
       - run: pq-isready -h localhost -p 5432 -U lab
