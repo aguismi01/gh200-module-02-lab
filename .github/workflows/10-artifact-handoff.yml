@@ -21,6 +21,7 @@ jobs:
           path: dist
           retention-days: 1
   inspect:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
@@ -28,4 +29,4 @@ jobs:
           name: app-build
           path: downloaded/
       - run: ls -la downloaded
-      
+      - run: cat downloaded/build-info.txt
