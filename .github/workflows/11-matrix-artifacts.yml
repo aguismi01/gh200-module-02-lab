@@ -12,6 +12,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
       - run: |
           mkdir -p reports
           echo "Report ${{ matrix.node }}" >> reports/report.txt
@@ -20,10 +22,14 @@ jobs:
           name: node-report-${{ matrix.node }}
           path: reports
           retention-days: 1
+
+
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/download-artifact@v4
         with:
-          name: node-report-${{ matrix.node }}
           path: downloads
       
-      - name: Display node v-${{ matrix.node }} report
-        run: cat downloads/report.txt
+      - name: Display report fo;es
+        run: cat downloads
