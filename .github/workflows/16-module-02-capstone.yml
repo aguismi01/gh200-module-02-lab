@@ -43,7 +43,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - run: sudo apt-get update && sudo apt-get install -y postrgresql-client
+      - run: sudo apt-get update && sudo apt-get install -y postgresql-client
       - run: psql -U lab -d app_test -c "SELECT 1;"
     
   prepare:
