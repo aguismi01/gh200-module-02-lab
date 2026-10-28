@@ -32,5 +32,8 @@ jobs:
         with:
           path: downloads
       
-      - name: Display report fo;es
+      - name: Display report files
         run: ls -la downloads
+
+      - name: Display the content of reports
+        run: cat downloads/node-report-*/report.txt
