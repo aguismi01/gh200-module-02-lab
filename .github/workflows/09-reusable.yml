@@ -11,7 +11,7 @@ jobs:
   job_output:
     runs-on: ubuntu-latest
     outputs:
-      label: ${{ steps.step1_job_output.label }}
+      label: ${{ steps.step1_job_output.outputs.label }}
     steps:
       - id: step1_job_output
         name: set a output on a step
