@@ -70,4 +70,6 @@ jobs:
           ls -la downloads
           cat downloads/test-report-*/test-report.txt
           echo "## Tag output: $TAG" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Test results of matrix jobs"
+          cat downloads/test-report-*/test-report.txt >> "$GITHUB_STEP_SUMMARY"
         
