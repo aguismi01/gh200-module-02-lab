@@ -1,0 +1,14 @@
+name: 09 Caller workflow
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    uses: ./.github/workflows/09-reusable.yml
+
+  report:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: display output of reusable workflow
+        run: echo "${{ needs.test.outputs.label }}"
