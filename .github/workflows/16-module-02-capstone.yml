@@ -49,6 +49,7 @@ jobs:
       - run: psql -U lab -d app_test -c "SELECT 1;"
     
   prepare:
+    runs-on: ubuntu-latest
     outputs:
       image_tag: ${{ steps.output.outputs.tag }}
     steps:
@@ -66,4 +67,3 @@ jobs:
         with:
           path: downloads
       - run: ls -la downloads
-          
