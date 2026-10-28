@@ -1,0 +1,19 @@
+name: 08 job-output
+
+on: workflow_dispatch
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - id: tag
+        run: echo "tag=lab-m2" >> $GITHUB_OUTPUT
+  
+  report:
+    needs: [inspect]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display outputs of previous job
+        run: echo ${{ needs.inspect.outputs.image_tag }}
