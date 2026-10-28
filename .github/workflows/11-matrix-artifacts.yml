@@ -33,4 +33,4 @@ jobs:
           path: downloads
       
       - name: Display report fo;es
-        run: cat downloads
+        run: ls -la downloads
