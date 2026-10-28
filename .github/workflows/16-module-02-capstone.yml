@@ -18,7 +18,7 @@ jobs:
       - run: npm test > test-result.txt
       - run: |
           mkdir -p dist
-          echo "Node Version is ${{ matrix.node }}" > dist/test-report.txt
+          echo "Node Version is $(node --version)" > dist/test-report.txt
           cat test-result.txt >> dist/test-report.txt
       - uses: actions/upload-artifact@v4
         with:
@@ -70,6 +70,6 @@ jobs:
           ls -la downloads
           cat downloads/test-report-*/test-report.txt
           echo "## Tag output: $TAG" >> "$GITHUB_STEP_SUMMARY"
-          echo "## Test results of matrix jobs"
+          echo "## Test results of matrix jobs" >> "$GITHUB_STEP_SUMMARY"
           cat downloads/test-report-*/test-report.txt >> "$GITHUB_STEP_SUMMARY"
         
