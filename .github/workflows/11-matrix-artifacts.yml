@@ -25,4 +25,4 @@ jobs:
           name: node-report-${{ matrix.node }}
           path: downloads
       
-      - run: cat downloads/node-report-${{ matrix-node }}
+      - run: cat downloads/node-report-${{ matrix.node }}
