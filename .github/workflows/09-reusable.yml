@@ -11,8 +11,8 @@ jobs:
   job_output:
     runs-on: ubuntu-latest
     outputs:
-      label: ${{ steps.labal-step.label }}
+      label: ${{ steps.step1_job_output.label }}
     steps:
-      - name: set a output on a step
-        id: labal-step
-        run: echo 'label="Build label" >> $GITHUB_OUTPUT'
+      - id: step1_job_output
+        name: set a output on a step
+        run: echo "label=Build-v1" >> "$GITHUB_OUTPUT"
