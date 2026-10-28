@@ -1,0 +1,31 @@
+name: 10 artifact handoff 
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SHA_COMMIT: ${{ github.sha }}
+      RUN_NUMBER: ${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          mkdir dist
+          printf 'sha=$SHA_COMMIT\nrun_number=$RUN_NUMBER' > dist/build-info.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-build
+          path: dist
+          retention-days: 1
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: app-build
+          path: downloaded/
+      - run: ls -la downloaded
+      
