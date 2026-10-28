@@ -1,4 +1,4 @@
-name: 05 postgres-runner
+name: 05-06 postgres-runner
 
 on: workflow_dispatch
 
@@ -13,8 +13,6 @@ jobs:
           POSTGRES_USER: lab
           POSTGRES_PASSWORD: lab-only-password
           POSTGRES_DB: app_test
-        ports:
-          - 5432:5432
         options: >-
           --health-cmd "pg_isready -U lab -d app_test"
           --health-interval 10s
@@ -23,6 +21,5 @@ jobs:
     steps:
       - run: |
           apt-get update
-          apt-get upgrade -y
           apt-get install -y postgresql-client
-      - run: pg-isready -h localhost -p 5432 -U lab
+      - run: pg_isready -h postgres -p 5432 -U lab
