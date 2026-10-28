@@ -58,10 +58,16 @@ jobs:
   report:
     runs-on: ubuntu-latest
     needs: [test, database-check, prepare]
+    env:
+      TAG: ${{ needs.prepare.outputs.image_tag }}
     steps:
       - name: Read output from prepare job
-        run: echo "Output from prepate job ${{ needs.prepare.outputs.image_tag }}}"
+        run: echo "Output from prepate job $TAG"
       - uses: actions/download-artifact@v4
         with:
           path: downloads
-      - run: ls -la downloads
+      - run: |
+          ls -la downloads
+          cat downloads/test-report-*/test-report.txt
+          echo "## Tag output: $TAG" >> "$GITHUB_STEP_SUMMARY"
+        
