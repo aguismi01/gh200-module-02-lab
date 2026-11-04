@@ -7,7 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          export MODE=dev
-          echo $MODE
+          export MODE1=dev
+          echo $MODE1
+      - run: echo "MODE2=dev" >> "$GITHUB_ENV"
 
-      - run: echo $MODE
+      - run: |
+          echo "mode1: $MODE1"
+          echo "mode2: $MODE2"
