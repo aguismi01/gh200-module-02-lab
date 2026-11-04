@@ -1,0 +1,13 @@
+name: Env tests
+
+on: workflow_dispatch
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          export MODE=dev
+          echo $MODE
+
+      - run: echo $MODE
