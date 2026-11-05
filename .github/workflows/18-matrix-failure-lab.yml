@@ -1,0 +1,73 @@
+name: Matrix Failure Lab
+
+run-name: "Fail ${{ inputs.fail_job }} | fail-fast=${{ inputs.fail_fast }} | allow-C=${{ inputs.allow_experimental_failure }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      fail_job:
+        description: "Which job should fail?"
+        type: choice
+        required: true
+        default: C
+        options:
+          - A
+          - B
+          - C
+
+      fail_fast:
+        description: "Cancel other matrix jobs after a required failure?"
+        type: boolean
+        required: true
+        default: false
+
+      allow_experimental_failure:
+        description: "Allow experimental job C to fail?"
+        type: boolean
+        required: true
+        default: false
+
+jobs:
+  test:
+    name: "Job ${{ matrix.job }}"
+    runs-on: ubuntu-latest
+
+    continue-on-error: ${{ inputs.allow_experimental_failure && matrix.experimental }}
+
+    strategy:
+      fail-fast: ${{ inputs.fail_fast }}
+      max-parallel: 3
+      matrix:
+        include:
+          - job: A
+            experimental: false
+          - job: B
+            experimental: false
+          - job: C
+            experimental: true
+
+    steps:
+      - name: Show this job's configuration
+        env:
+          JOB: ${{ matrix.job }}
+          ALLOWED_TO_FAIL: ${{ inputs.allow_experimental_failure && matrix.experimental }}
+          FAIL_FAST: ${{ inputs.fail_fast }}
+        run: |
+          echo "Job: $JOB"
+          echo "Allowed to fail: $ALLOWED_TO_FAIL"
+          echo "Matrix fail-fast: $FAIL_FAST"
+
+      - name: Simulate work
+        env:
+          JOB: ${{ matrix.job }}
+          FAIL_JOB: ${{ inputs.fail_job }}
+        run: |
+          if [ "$JOB" = "$FAIL_JOB" ]; then
+            echo "This job will fail after 5 seconds."
+            sleep 5
+            exit 1
+          fi
+
+          echo "This job needs 10 seconds to finish."
+          sleep 10
+          echo "Finished successfully."
