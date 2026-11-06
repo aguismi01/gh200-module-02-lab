@@ -8,6 +8,8 @@ jobs:
     steps:
       - run: |
           echo "MODE=dev" >> "$GITHUB_ENV"
+      - name: check env
+        run: |
           echo "mode: $MODE"
   inspect1:
     runs-on: ubuntu-latest
