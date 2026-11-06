@@ -6,10 +6,13 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "MODE=dev" >> "$GITHUB_ENV"
-      - run: echo "mode: $MODE"
+      - run: |
+          echo "MODE=dev" >> "$GITHUB_ENV"
+          echo "mode: $MODE"
   inspect1:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "mode: $MODE"
+      - name: Check mode env
+        run: |
+          echo "mode: $MODE"
     
