@@ -6,11 +6,7 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          export MODE1=dev
-          echo $MODE1
-      - run: echo "MODE2=dev" >> "$GITHUB_ENV"
-
-      - run: |
-          echo "mode1: $MODE1"
-          echo "mode2: $MODE2"
+      - run: echo "MODE=dev" >> "$GITHUB_ENV"
+      - run: echo "mode: $MODE"
+  inspect1:
+    runs-on: ubuntu-latest
