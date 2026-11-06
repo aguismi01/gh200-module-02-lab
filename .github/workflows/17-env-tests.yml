@@ -10,3 +10,6 @@ jobs:
       - run: echo "mode: $MODE"
   inspect1:
     runs-on: ubuntu-latest
+    steps:
+      - run: echo "mode: $MODE"
+    
